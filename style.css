@@ -90,6 +90,12 @@ header .subtitle {
   color: #999;
 }
 
+.scenario-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
 /* Buttons */
 .primary-btn {
   display: inline-block;
@@ -281,23 +287,6 @@ header .subtitle {
   display: block;
 }
 
-.node-conclusion {
-  background: var(--color-accent-light);
-  margin: 0.75rem -1rem -1rem -1rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0 0 5px 5px;
-}
-
-.node-conclusion .label {
-  color: var(--color-accent);
-}
-
-.conclusion-text {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  color: var(--color-accent);
-  font-weight: 500;
-}
 
 .node-actions {
   display: flex;
@@ -323,6 +312,34 @@ header .subtitle {
 
 .node-children {
   margin-top: 0.5rem;
+}
+
+/* Conclusion card */
+.conclusion-card {
+  background: var(--color-accent-light);
+  border: 2px solid var(--color-accent);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.conclusion-card .label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.conclusion-card .conclusion-text {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.5;
 }
 
 

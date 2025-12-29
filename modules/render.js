@@ -44,6 +44,7 @@ export function render() {
     case 'review':
       main.appendChild(renderScenarioDisplay());
       main.appendChild(renderTreeView());
+      main.appendChild(renderConclusionCard());
       main.appendChild(renderReviewControls());
       break;
   }
@@ -61,7 +62,10 @@ function renderScenarioInput() {
       placeholder="Describe the situation or decision you're thinking through..."
       rows="3"
     ></textarea>
-    <button id="submit-scenario" class="primary-btn">Begin</button>
+    <div class="scenario-actions">
+      <button id="load-sample" class="secondary-btn">Load example</button>
+      <button id="submit-scenario" class="primary-btn">Begin</button>
+    </div>
   `;
   return section;
 }
@@ -146,6 +150,19 @@ function renderReviewControls() {
   return section;
 }
 
+function renderConclusionCard() {
+  const state = getState();
+  if (!state.conclusion) return document.createDocumentFragment();
+
+  const card = document.createElement('div');
+  card.className = 'conclusion-card';
+  card.innerHTML = `
+    <span class="label">Conclusion</span>
+    <p class="conclusion-text">${escapeHtml(state.conclusion)}</p>
+  `;
+  return card;
+}
+
 function renderTreeView() {
   const state = getState();
   const container = document.createElement('div');
@@ -184,24 +201,17 @@ function renderNode(node, isRoot = false) {
       <span class="label">Then:</span>
       <span class="user-text">${escapeHtml(node.reaction)}</span>
     </div>
-    ${node.isConclusion ? `
-      <div class="node-conclusion">
-        <span class="label">Conclusion:</span>
-        <span class="conclusion-text">${escapeHtml(node.conclusionText)}</span>
-      </div>
-    ` : ''}
   `;
 
   nodeEl.appendChild(content);
 
   // Node actions (only in decide/review phases that aren't export mode)
-  if (!document.body.classList.contains('export-mode') && !node.isConclusion) {
+  if (!document.body.classList.contains('export-mode')) {
     const actions = document.createElement('div');
     actions.className = 'node-actions';
     actions.innerHTML = `
       <button class="node-btn subpath-btn" data-node-id="${node.id}">+ Next action</button>
       <button class="node-btn sibling-btn" data-node-id="${node.id}">+ Sibling</button>
-      <button class="node-btn conclude-btn" data-node-id="${node.id}">Conclude</button>
     `;
     nodeEl.appendChild(actions);
   }

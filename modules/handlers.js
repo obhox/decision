@@ -4,11 +4,12 @@ import {
   createNode,
   addRoot,
   addChildToNode,
-  markAsConclusion,
+  setConclusion,
   setDrawbacks,
   setPhase,
   resetState,
-  isRootNode
+  isRootNode,
+  loadSample
 } from './state.js';
 import { render } from './render.js';
 import { toggleExportMode } from './export.js';
@@ -29,6 +30,12 @@ function handleClick(event) {
   // Scenario submission
   if (target.id === 'submit-scenario') {
     handleSubmitScenario();
+    return;
+  }
+
+  // Load sample
+  if (target.id === 'load-sample') {
+    handleLoadSample();
     return;
   }
 
@@ -75,12 +82,6 @@ function handleClick(event) {
   if (target.classList.contains('sibling-btn')) {
     const nodeId = target.dataset.nodeId;
     handleSiblingFromNode(nodeId);
-    return;
-  }
-
-  if (target.classList.contains('conclude-btn')) {
-    const nodeId = target.dataset.nodeId;
-    handleConcludeNode(nodeId);
     return;
   }
 
@@ -134,6 +135,11 @@ function handleSubmitScenario() {
   setTimeout(() => {
     document.getElementById('action-input')?.focus();
   }, 0);
+}
+
+function handleLoadSample() {
+  loadSample();
+  render();
 }
 
 function handleSubmitAction() {
@@ -215,7 +221,7 @@ function handleAddSibling() {
 }
 
 function handleMarkConclusion() {
-  showConclusionModal(window.__activeNodeId);
+  showConclusionModal();
 }
 
 function handleAddDrawback() {
@@ -258,24 +264,20 @@ function handleSiblingFromNode(nodeId) {
   }, 0);
 }
 
-function handleConcludeNode(nodeId) {
-  showConclusionModal(nodeId);
-}
-
-function showConclusionModal(nodeId) {
+function showConclusionModal() {
   const modal = document.createElement('div');
   modal.className = 'modal-overlay';
   modal.innerHTML = `
     <div class="modal">
-      <label for="conclusion-input">This leads to...</label>
+      <label for="conclusion-input">What is your final conclusion?</label>
       <textarea
         id="conclusion-input"
-        placeholder="What's your conclusion? What does this path lead to?"
+        placeholder="After exploring all paths, what have you decided?"
         rows="3"
       ></textarea>
       <div class="modal-buttons">
         <button id="cancel-conclusion" class="secondary-btn">Cancel</button>
-        <button id="confirm-conclusion" class="primary-btn" data-node-id="${nodeId}">Conclude</button>
+        <button id="confirm-conclusion" class="primary-btn">Conclude</button>
       </div>
     </div>
   `;
@@ -293,7 +295,7 @@ function showConclusionModal(nodeId) {
     const value = input.value.trim();
 
     if (value) {
-      markAsConclusion(nodeId, value);
+      setConclusion(value);
       setPhase('review');
       render();
     }
