@@ -1,0 +1,466 @@
+/* Base reset and variables */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: #fafafa;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666666;
+  --color-border: #e0e0e0;
+  --color-accent: #2563eb;
+  --color-accent-light: #dbeafe;
+  --color-warning: #b45309;
+  --color-warning-light: #fef3c7;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "SF Mono", "Fira Code", "Fira Mono", Menlo, monospace;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text);
+}
+
+header .subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Input sections */
+.input-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-section label {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--color-text);
+}
+
+.input-section textarea {
+  width: 100%;
+  padding: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.input-section textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+.input-section textarea::placeholder {
+  color: #999;
+}
+
+/* Buttons */
+.primary-btn {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: white;
+  background-color: var(--color-text);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.primary-btn:hover {
+  background-color: #333;
+}
+
+.secondary-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.secondary-btn:hover {
+  background-color: #f5f5f5;
+  border-color: #ccc;
+}
+
+.accent-btn {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.accent-btn:hover {
+  background-color: var(--color-accent-light);
+}
+
+.warning-btn {
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+}
+
+.warning-btn:hover {
+  background-color: var(--color-warning-light);
+}
+
+/* Input actions (multiple buttons) */
+.input-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+/* Scenario and action displays */
+.scenario-display,
+.current-action-display,
+.current-drawbacks-display {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.current-drawbacks-display {
+  background: var(--color-warning-light);
+  border-color: var(--color-warning);
+}
+
+.scenario-display .label,
+.current-action-display .label,
+.current-drawbacks-display .label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-right: 0.5rem;
+}
+
+.current-drawbacks-display .label {
+  color: var(--color-warning);
+}
+
+.user-text {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+}
+
+/* Decision section */
+.decision-section {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.decision-prompt {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.decision-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+/* Review section */
+.review-section {
+  padding: 1.5rem 0;
+}
+
+.review-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+/* Tree view */
+.tree-container {
+  margin: 2rem 0;
+}
+
+.tree-node {
+  position: relative;
+  margin-left: 1.5rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--color-border);
+}
+
+.tree-node.root-node {
+  margin-left: 0;
+  padding-left: 0;
+  border-left: none;
+}
+
+.node-content {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.node-action,
+.node-drawbacks,
+.node-reaction,
+.node-conclusion {
+  margin-bottom: 0.5rem;
+}
+
+.node-action:last-child,
+.node-drawbacks:last-child,
+.node-reaction:last-child,
+.node-conclusion:last-child {
+  margin-bottom: 0;
+}
+
+.node-drawbacks {
+  background: var(--color-warning-light);
+  margin: 0.5rem -1rem;
+  padding: 0.5rem 1rem;
+}
+
+.node-drawbacks .label {
+  color: var(--color-warning);
+}
+
+.node-content .label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.node-content .user-text {
+  display: block;
+}
+
+.node-conclusion {
+  background: var(--color-accent-light);
+  margin: 0.75rem -1rem -1rem -1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0 0 5px 5px;
+}
+
+.node-conclusion .label {
+  color: var(--color-accent);
+}
+
+.conclusion-text {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.node-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.node-btn {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.node-btn:hover {
+  color: var(--color-text);
+  border-color: #aaa;
+}
+
+.node-children {
+  margin-top: 0.5rem;
+}
+
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: var(--color-surface);
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 500px;
+}
+
+.modal label {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.modal textarea {
+  width: 100%;
+  padding: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.modal textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+/* Export mode */
+#export-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-text);
+  color: white;
+  padding: 1rem;
+  z-index: 999;
+}
+
+.export-instructions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.export-instructions p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.export-instructions .secondary-btn {
+  background: transparent;
+  color: white;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.export-instructions .secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+.export-mode #app {
+  padding-top: 5rem;
+}
+
+.export-mode .node-actions,
+.export-mode .review-section,
+.export-mode .decision-section {
+  display: none;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+  }
+
+  #export-overlay {
+    display: none !important;
+  }
+
+  #app {
+    padding: 1rem;
+  }
+
+  .node-actions,
+  .review-section,
+  .decision-section {
+    display: none !important;
+  }
+
+  .tree-node {
+    break-inside: avoid;
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #app {
+    padding: 2rem 1rem;
+  }
+
+  .decision-buttons {
+    flex-direction: column;
+  }
+
+  .decision-buttons button {
+    width: 100%;
+  }
+}
