@@ -1,4 +1,6 @@
 import { render } from './render.js';
+import html2pdf from 'html2pdf.js';
+import { getState } from './state.js';
 
 let isExportMode = false;
 
@@ -41,4 +43,31 @@ function removeExportOverlay() {
 
 export function isInExportMode() {
   return isExportMode;
+}
+
+export function downloadPDF() {
+  const state = getState();
+  const app = document.getElementById('app');
+
+  // Temporarily enter export mode for clean PDF
+  document.body.classList.add('export-mode');
+  render();
+
+  const options = {
+    margin: [10, 10, 10, 10],
+    filename: `decision-${Date.now()}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf()
+    .set(options)
+    .from(app)
+    .save()
+    .then(() => {
+      // Restore normal mode after PDF is generated
+      document.body.classList.remove('export-mode');
+      render();
+    });
 }

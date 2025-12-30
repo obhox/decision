@@ -10,7 +10,7 @@ export function render() {
   const header = document.createElement('header');
   header.innerHTML = `
     <h1>Decision</h1>
-    <p class="subtitle">Trace your logic, one consequence at a time.</p>
+    <p class="subtitle">Clarify your thinking and make better decisions, one consequence at a time.</p>
   `;
   app.appendChild(header);
 
@@ -143,7 +143,7 @@ function renderReviewControls() {
   section.className = 'review-section';
   section.innerHTML = `
     <div class="review-buttons">
-      <button id="export-mode" class="secondary-btn">Export view</button>
+      <button id="export-pdf" class="primary-btn">Export PDF</button>
       <button id="start-over" class="secondary-btn">Start over</button>
     </div>
   `;

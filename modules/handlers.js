@@ -12,7 +12,7 @@ import {
   loadSample
 } from './state.js';
 import { render } from './render.js';
-import { toggleExportMode } from './export.js';
+import { toggleExportMode, downloadPDF } from './export.js';
 
 // Track pending input between phases
 window.__pendingAction = '';
@@ -86,6 +86,11 @@ function handleClick(event) {
   }
 
   // Review controls
+  if (target.id === 'export-pdf') {
+    downloadPDF();
+    return;
+  }
+
   if (target.id === 'export-mode') {
     toggleExportMode();
     return;
