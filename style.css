@@ -35,8 +35,15 @@ body {
 
 /* Header */
 header {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 3rem;
+  position: relative;
+}
+
+.header-content {
+  text-align: center;
 }
 
 header h1 {
@@ -50,6 +57,18 @@ header .subtitle {
   font-size: 0.95rem;
   color: var(--color-text-muted);
   margin: 0;
+}
+
+.github-link {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: var(--color-text-muted);
+  transition: color 0.15s;
+}
+
+.github-link:hover {
+  color: var(--color-text);
 }
 
 /* Input sections */

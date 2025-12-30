@@ -192,7 +192,7 @@ Nothing else. Ship it minimal.
 
 ## One-Line Description
 
-> A decision-forcing tool that makes you finish your own logic — one consequence at a time.
+> A decision-forcing tool that makes you finish your own logic — one decison at a time.
 ```
 
 ---
