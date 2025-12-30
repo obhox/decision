@@ -9,7 +9,7 @@ export function render() {
   // Header
   const header = document.createElement('header');
   header.innerHTML = `
-    <h1>Consequence Chain</h1>
+    <h1>Decision</h1>
     <p class="subtitle">Trace your logic, one consequence at a time.</p>
   `;
   app.appendChild(header);
